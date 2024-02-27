@@ -7,7 +7,6 @@
 
 # %%
 import requests
-import json
 
 
 # transformar o cod anterior em funcao para cotar moedas
@@ -17,10 +16,8 @@ import json
 # a funcao cotacao captura todos os dados e depois retorna somente o dado necessário
 def cotacao(valor, moeda):
     url = f'https://economia.awesomeapi.com.br/last/{moeda}'
-    ret = requests.get(url)
-    arq = ret.json()
-
-    v = float(arq[moeda.replace('-', '')]['bid'])
+    ret = requests.get(url).json()
+    v = float(ret[moeda.replace('-', '')]['bid'])
     final = v * valor
     print(f"{valor} {moeda[:3]} hoje custam {final:.2f} {moeda[-3:]}")
 
@@ -33,8 +30,8 @@ cotacao(2, 'USD-BRL')
 def cotar(valor, moeda):
     # a funcao cotar captura somente o dado necessario direto com json.loads()
     url = f'https://economia.awesomeapi.com.br/last/{moeda}'
-    ret = requests.get(url)
-    bid = float(json.loads(ret.text)[moeda.replace('-', '')]['bid'])
+    ret = requests.get(url).json()
+    bid = float(ret[moeda.replace('-', '')]['bid'])
     print(f"{(bid * valor):.2f}")
 
 

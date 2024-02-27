@@ -13,8 +13,8 @@ lista_moedas = [
 
 def cotacao(valor, moeda):
     url = f'https://economia.awesomeapi.com.br/last/{moeda}'
-    ret = requests.get(url)
-    bid = float(json.loads(ret.text)[moeda.replace('-', '')]['bid'])
+    ret = requests.get(url).json()
+    bid = float(ret[moeda.replace('-', '')]['bid'])
     print(f"{valor} {moeda[:3]} hoje custam {(bid * valor):.2f} {moeda[-3:]}")
 
 
@@ -36,12 +36,12 @@ def cotacao(valor, moeda):
 def cotar(valor, moeda):
     try:  # tratar dentro da funcao
         url = f'https://economia.awesomeapi.com.br/last/{moeda}'
-        ret = requests.get(url)
-        bid = float(json.loads(ret.text)[moeda.replace('-', '')]['bid'])
+        ret = requests.get(url).json()
+        bid = float(ret[moeda.replace('-', '')]['bid'])
         print(
             f"{valor} {moeda[:3]} hoje custam {(bid * valor):.2f} {moeda[-3:]}")
     except Exception as e:
-        print(f'Erro ao buscar moeda {e}') 
+        print(f'Erro ao buscar moeda {e}')
         pass
     else:
         pass
@@ -53,8 +53,8 @@ for moeda in lista_moedas:
 
 def c2(valor, moeda):
     url = f'https://economia.awesomeapi.com.br/last/{moeda}'
-    ret = requests.get(url)
-    bid = float(json.loads(ret.text)[moeda.replace('-', '')]['bid'])
+    ret = requests.get(url).json()
+    bid = float(ret[moeda.replace('-', '')]['bid'])
     print(
         f"{valor} {moeda[:3]} hoje custam {(bid * valor):.2f} {moeda[-3:]}")
 
@@ -65,6 +65,6 @@ for moeda in lista_moedas:
     try:  # tratar a cada moeda iterada
         c2(10, moeda)
     except Exception as e:
-        print(f'Erro ao buscar moeda {e}') 
+        print(f'Erro ao buscar moeda {e}')
     else:
         pass
